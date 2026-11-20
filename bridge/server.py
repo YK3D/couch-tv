@@ -53,6 +53,7 @@ import smarthome
 import bookings
 import direct
 import say
+import family
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -5227,6 +5228,7 @@ def make_app():
     r.add_post("/api/volume", h_volume)
     r.add_get("/api/screenshot", h_screenshot)
     agentic.routes(r)
+    family.routes(r, _current.get, ok, ApiError, body)   # the family home's adhan (docs/FAMILY.md)
     r.add_route("OPTIONS", "/api/{tail:.*}", h_options)
     r.add_route("*", "/api/{tail:.*}", h_api_missing)
     r.add_get("/vidaa/icon.png", h_vidaa_icon)
@@ -5260,6 +5262,7 @@ def make_app():
             await t.start()
             if t.paired:
                 app["loops"] += [for_tv(tv_id, keep_disabled_loop), for_tv(tv_id, media_watch_loop)]
+        app["loops"] += family.start(TVS, for_tv)   # nothing without a "family" section in config.json
         app["bonjour"] = await advertise_for_appletv()
 
     async def on_cleanup(_):

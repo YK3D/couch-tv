@@ -1,0 +1,275 @@
+{
+ "source": "api.aladhan.com/v1/timings, fetched 2026-11-20, latitudeAdjustmentMethod=3",
+ "cases": [
+  {
+   "name": "Makkah",
+   "lat": 21.4225,
+   "lng": 39.8262,
+   "timezone": "Asia/Riyadh",
+   "method": "MAKKAH",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "05:15",
+    "sunrise": "06:35",
+    "dhuhr": "12:06",
+    "asr": "15:16",
+    "maghrib": "17:38",
+    "isha": "19:08"
+   }
+  },
+  {
+   "name": "Makkah Ramadan",
+   "lat": 21.4225,
+   "lng": 39.8262,
+   "timezone": "Asia/Riyadh",
+   "method": "MAKKAH",
+   "asr": "standard",
+   "date": "2027-02-22",
+   "hijri": "15-09-1448",
+   "aladhan": {
+    "fajr": "05:30",
+    "sunrise": "06:47",
+    "dhuhr": "12:34",
+    "asr": "15:53",
+    "maghrib": "18:22",
+    "isha": "20:22"
+   }
+  },
+  {
+   "name": "Riyadh",
+   "lat": 24.7136,
+   "lng": 46.6753,
+   "timezone": "Asia/Riyadh",
+   "method": "MAKKAH",
+   "asr": "standard",
+   "date": "2026-06-21",
+   "hijri": "06-01-1448",
+   "aladhan": {
+    "fajr": "03:33",
+    "sunrise": "05:05",
+    "dhuhr": "11:55",
+    "asr": "15:16",
+    "maghrib": "18:45",
+    "isha": "20:15"
+   }
+  },
+  {
+   "name": "Cairo",
+   "lat": 30.0444,
+   "lng": 31.2357,
+   "timezone": "Africa/Cairo",
+   "method": "EGYPT",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "04:54",
+    "sunrise": "06:24",
+    "dhuhr": "11:41",
+    "asr": "14:38",
+    "maghrib": "16:57",
+    "isha": "18:18"
+   }
+  },
+  {
+   "name": "Dubai",
+   "lat": 25.2048,
+   "lng": 55.2708,
+   "timezone": "Asia/Dubai",
+   "method": "DUBAI",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "05:19",
+    "sunrise": "06:39",
+    "dhuhr": "12:07",
+    "asr": "15:09",
+    "maghrib": "17:33",
+    "isha": "18:50"
+   }
+  },
+  {
+   "name": "Kuwait",
+   "lat": 29.3759,
+   "lng": 47.9774,
+   "timezone": "Asia/Kuwait",
+   "method": "KUWAIT",
+   "asr": "standard",
+   "date": "2026-03-10",
+   "hijri": "21-09-1447",
+   "aladhan": {
+    "fajr": "04:45",
+    "sunrise": "06:04",
+    "dhuhr": "11:58",
+    "asr": "15:20",
+    "maghrib": "17:53",
+    "isha": "19:10"
+   }
+  },
+  {
+   "name": "London summer",
+   "lat": 51.5074,
+   "lng": -0.1278,
+   "timezone": "Europe/London",
+   "method": "MWL",
+   "asr": "standard",
+   "date": "2026-06-21",
+   "hijri": "06-01-1448",
+   "aladhan": {
+    "fajr": "02:31",
+    "sunrise": "04:43",
+    "dhuhr": "13:02",
+    "asr": "17:25",
+    "maghrib": "21:22",
+    "isha": "23:27"
+   }
+  },
+  {
+   "name": "London winter",
+   "lat": 51.5074,
+   "lng": -0.1278,
+   "timezone": "Europe/London",
+   "method": "MWL",
+   "asr": "standard",
+   "date": "2026-12-21",
+   "hijri": "12-07-1448",
+   "aladhan": {
+    "fajr": "05:59",
+    "sunrise": "08:04",
+    "dhuhr": "11:59",
+    "asr": "13:38",
+    "maghrib": "15:53",
+    "isha": "17:51"
+   }
+  },
+  {
+   "name": "New York",
+   "lat": 40.7128,
+   "lng": -74.006,
+   "timezone": "America/New_York",
+   "method": "ISNA",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "05:29",
+    "sunrise": "06:49",
+    "dhuhr": "11:42",
+    "asr": "14:15",
+    "maghrib": "16:34",
+    "isha": "17:54"
+   }
+  },
+  {
+   "name": "Karachi Hanafi",
+   "lat": 24.8607,
+   "lng": 67.0011,
+   "timezone": "Asia/Karachi",
+   "method": "KARACHI",
+   "asr": "hanafi",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "05:32",
+    "sunrise": "06:52",
+    "dhuhr": "12:18",
+    "asr": "16:08",
+    "maghrib": "17:43",
+    "isha": "19:03"
+   }
+  },
+  {
+   "name": "Sydney",
+   "lat": -33.8688,
+   "lng": 151.2093,
+   "timezone": "Australia/Sydney",
+   "method": "MWL",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "04:03",
+    "sunrise": "05:41",
+    "dhuhr": "12:41",
+    "asr": "16:24",
+    "maghrib": "19:41",
+    "isha": "21:12"
+   }
+  },
+  {
+   "name": "Kuala Lumpur",
+   "lat": 3.139,
+   "lng": 101.6869,
+   "timezone": "Asia/Kuala_Lumpur",
+   "method": "JAKIM",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "05:38",
+    "sunrise": "07:00",
+    "dhuhr": "12:59",
+    "asr": "16:23",
+    "maghrib": "18:58",
+    "isha": "20:11"
+   }
+  },
+  {
+   "name": "Amman",
+   "lat": 31.9539,
+   "lng": 35.9106,
+   "timezone": "Asia/Amman",
+   "method": "JORDAN",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "05:44",
+    "sunrise": "07:09",
+    "dhuhr": "12:22",
+    "asr": "15:15",
+    "maghrib": "17:39",
+    "isha": "18:59"
+   }
+  },
+  {
+   "name": "Doha",
+   "lat": 25.2854,
+   "lng": 51.531,
+   "timezone": "Asia/Qatar",
+   "method": "QATAR",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "04:35",
+    "sunrise": "05:54",
+    "dhuhr": "11:19",
+    "asr": "14:24",
+    "maghrib": "16:44",
+    "isha": "18:14"
+   }
+  },
+  {
+   "name": "Paris",
+   "lat": 48.8566,
+   "lng": 2.3522,
+   "timezone": "Europe/Paris",
+   "method": "FRANCE",
+   "asr": "standard",
+   "date": "2026-11-20",
+   "hijri": "10-06-1448",
+   "aladhan": {
+    "fajr": "06:53",
+    "sunrise": "08:07",
+    "dhuhr": "12:36",
+    "asr": "14:46",
+    "maghrib": "17:05",
+    "isha": "18:19"
+   }
+  }
+ ]
+}

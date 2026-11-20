@@ -65,3 +65,12 @@ xcuserdata/
 
 # the ambient loops as rendered (tv-home/tools/loops/make-loops.mjs); copies go in tv-home/web/backgrounds/
 tv-home/tools/loops/out/
+
+# The family home's adhan recordings (scripts/get-adhan.py downloads them here for your own use)
+tv-home/web/family/adhan/mine/*
+!tv-home/web/family/adhan/mine/.gitkeep
+# The family home's live picture from a satellite tuner on this computer (scripts/haram-lan-stream.sh)
+tv-home/web/family/live/
+# The relay's local tools
+relay/node_modules/
+relay/.wrangler/

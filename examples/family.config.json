@@ -1,0 +1,36 @@
+{
+  "_comment": "The family home (docs/FAMILY.md) for a Samsung with a satellite dish and an LG with none. Copy the parts you need into your own config.json; never put the relay's DRAW_KEY in it.",
+  "country": "SA",
+  "weather": { "lat": 24.7136, "lon": 46.6753, "place": "Riyadh", "timezone": "Asia/Riyadh" },
+  "bridge": { "host": "my-computer.local", "port": 5400 },
+  "tvs": [
+    {
+      "id": "living", "name": "Living room", "kind": "samsung", "ip": "192.0.2.20",
+      "family": { "haram": { "samsung_tuner": true, "tuner_channel": "105" } }
+    },
+    {
+      "id": "majlis", "name": "Majlis", "kind": "lg", "ip": "192.0.2.21",
+      "family": { "haram": { "dish_url": "http://my-computer.local:5400/tv/family/live/index.m3u8" } }
+    }
+  ],
+  "family": {
+    "members": [
+      { "id": "dad", "name": "Dad", "color": "#3b82f6" },
+      { "id": "mum", "name": "Mum", "color": "#ec4899" },
+      { "id": "layla", "name": "Layla", "color": "#10b981" },
+      { "id": "yusuf", "name": "Yusuf", "color": "#f59e0b" }
+    ],
+    "language": "en",
+    "relay": { "url": "wss://couch-family.your-name.workers.dev", "household": "home1", "tv_key": "the-TV_KEY-you-made" },
+    "prayer": { "method": "auto", "asr": "auto", "hijri_adjust": 0, "offsets": {} },
+    "adhan": {
+      "on": true, "muezzin": "alafasy", "fajr_muezzin": "nafees", "volume": 100, "fajr_volume": 70,
+      "prayers": { "fajr": true, "dhuhr": true, "asr": true, "maghrib": true, "isha": true },
+      "interrupt_apps": true, "never": [], "dua": true, "return_after": true
+    },
+    "haram": { "data_saver_minutes": 20, "muted": false },
+    "apps": ["youtube", "netflix", "shahid", "smarters"],
+    "background": "mountain",
+    "speed": "auto"
+  }
+}

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, initial-scale=1, user-scalable=no">
+<!-- The family home (docs/FAMILY.md): four family whiteboards drawn from each person's phone, the live
+     broadcast from Masjid al-Haram in the middle, prayer times with the adhan, the weather and the clock,
+     over a blurred mountain that follows the time of day. One row of apps; Down shows the rest and the
+     games. Made for Samsung (Tizen) and LG (webOS): samsung/build.py and lg/build.py put their own
+     side in before config.js, the same as for index.html. It also opens in any browser
+     (family.html?demo=1 fills it with sample data). -->
+<title>Family home</title>
+<link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="family/family.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <!-- the background: five pre-blurred copies of one mountain, one per part of the day (scripts/make-family-bg.py).
+       Only opacity changes, so it costs the TV nothing to fade between them. -->
+  <div class="sky" id="sky" aria-hidden="true">
+    <div class="sky-layer" data-phase="night"></div>
+    <div class="sky-layer" data-phase="dawn"></div>
+    <div class="sky-layer" data-phase="day"></div>
+    <div class="sky-layer" data-phase="golden"></div>
+    <div class="sky-layer" data-phase="dusk"></div>
+    <div class="sun-glow" id="sun-glow"></div>
+    <div class="shade"></div>
+  </div>
+
+  <div class="slide" id="slide">
+    <!-- ======================= the home ======================= -->
+    <section class="page page-home" id="page-home">
+      <header class="top">
+        <div class="clock-block">
+          <div class="time" id="time">--:--</div>
+          <div class="dates">
+            <div class="date" id="date"></div>
+            <div class="hijri" id="hijri" dir="rtl"></div>
+          </div>
+        </div>
+        <div class="next" id="next" aria-live="polite">
+          <div class="next-label" id="next-label"></div>
+          <div class="next-name" id="next-name"></div>
+          <div class="next-in" id="next-in"></div>
+        </div>
+        <div class="wx" id="wx">
+          <div class="wx-icon" id="wx-icon" aria-hidden="true"></div>
+          <div class="wx-text">
+            <div class="wx-temp" id="wx-temp">--°</div>
+            <div class="wx-desc" id="wx-desc"></div>
+            <div class="wx-place" id="wx-place"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="middle">
+        <div class="boards boards-left">
+          <div class="board f" id="board-0" data-board="0" tabindex="-1"><canvas></canvas><div class="board-tag"><i></i><span></span><em></em></div></div>
+          <div class="board f" id="board-1" data-board="1" tabindex="-1"><canvas></canvas><div class="board-tag"><i></i><span></span><em></em></div></div>
+        </div>
+        <div class="live f" id="live" tabindex="-1">
+          <!-- Samsung: the TV's own satellite tuner shows in this rectangle (tizen.tvwindow), in front of the page.
+               LG and others: a <video> of the stream named in config.json, or nothing (see docs/FAMILY.md). -->
+          <div class="live-media" id="live-media"></div>
+          <div class="live-cover" id="live-cover">
+            <div class="kaaba" aria-hidden="true"><b></b></div>
+            <p class="live-cover-text" id="live-cover-text"></p>
+          </div>
+          <div class="live-tag"><span class="dot"></span><span id="live-tag-text"></span></div>
+        </div>
+        <div class="boards boards-right">
+          <div class="board f" id="board-2" data-board="2" tabindex="-1"><canvas></canvas><div class="board-tag"><i></i><span></span><em></em></div></div>
+          <div class="board f" id="board-3" data-board="3" tabindex="-1"><canvas></canvas><div class="board-tag"><i></i><span></span><em></em></div></div>
+        </div>
+      </div>
+
+      <div class="prayers" id="prayers">
+        <div class="pr-line" aria-hidden="true"><div class="pr-fill" id="pr-fill"></div></div>
+        <div class="pr-list" id="pr-list"></div>
+        <div class="pr-toggles">
+          <div class="toggle f" id="tg-haram" role="switch" tabindex="-1"><span class="tg-icon"></span><span class="tg-text"></span></div>
+          <div class="toggle f" id="tg-adhan" role="switch" tabindex="-1"><span class="tg-icon"></span><span class="tg-text"></span></div>
+        </div>
+      </div>
+
+      <nav class="dock" id="dock" aria-label="Apps"></nav>
+      <div class="down-hint" id="down-hint"></div>
+    </section>
+
+    <!-- ======================= Down: every app, then the games ======================= -->
+    <section class="page page-library" id="page-library">
+      <h2 class="lib-title" id="lib-apps-title"></h2>
+      <div class="lib-grid" id="lib-grid"></div>
+      <h2 class="lib-title" id="lib-games-title"></h2>
+      <div class="lib-games" id="lib-games"></div>
+    </section>
+  </div>
+
+  <!-- a whiteboard, big -->
+  <div class="overlay board-big" id="board-big" aria-hidden="true">
+    <div class="bb-head"><i></i><span id="bb-name"></span><em id="bb-when"></em></div>
+    <div class="bb-frame"><canvas id="bb-canvas"></canvas></div>
+    <p class="bb-hint" id="bb-hint"></p>
+  </div>
+
+  <!-- the adhan -->
+  <div class="overlay adhan" id="adhan" aria-hidden="true" aria-live="assertive">
+    <div class="adhan-inner">
+      <div class="adhan-ar" dir="rtl">الله أكبر</div>
+      <div class="adhan-name" id="adhan-name"></div>
+      <div class="adhan-who" id="adhan-who"></div>
+      <div class="adhan-bar"><div class="adhan-bar-fill" id="adhan-bar-fill"></div></div>
+      <div class="adhan-dua" id="adhan-dua" dir="rtl"></div>
+      <p class="adhan-hint" id="adhan-hint"></p>
+    </div>
+  </div>
+
+  <!-- settings (the gear tile) -->
+  <div class="overlay settings" id="settings" aria-hidden="true">
+    <div class="set-side"><h1 id="set-title"></h1><div class="set-tabs" id="set-tabs"></div></div>
+    <div class="set-main"><h2 id="set-head"></h2><div class="set-rows" id="set-rows"></div><p class="set-note" id="set-note"></p></div>
+  </div>
+
+  <!-- a game -->
+  <div class="overlay game" id="game" aria-hidden="true">
+    <div class="game-head"><span id="game-title"></span><span id="game-score"></span></div>
+    <canvas id="game-canvas" width="1280" height="800"></canvas>
+    <p class="game-hint" id="game-hint"></p>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <audio id="adhan-audio" preload="none"></audio>
+</div>
+
+<script src="config.js"></script>
+<script src="family/hijri-table.js"></script>
+<script src="family/prayer.js"></script>
+<script src="family/strokefont.js"></script>
+<script src="family/adhan/list.js"></script>
+<script src="family/adhan/have-empty.js"></script>
+<script src="family/adhan/mine/have.js"></script>
+<script src="family/fh.js"></script>
+<script src="family/board.js"></script>
+<script src="family/haram.js"></script>
+<script src="family/adhan.js"></script>
+<script src="family/games.js"></script>
+<script src="family/home.js"></script>
+</body>
+</html>

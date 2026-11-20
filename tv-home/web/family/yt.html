@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Live</title>
+<style>html, body, iframe { margin: 0; width: 100%; height: 100%; border: 0; background: #000; overflow: hidden; }</style>
+</head>
+<body>
+<!-- The family home's YouTube live tile, served by the bridge (/tv/family/yt.html?v=<id>&mute=0|1), so the player
+     sits in a page with a normal address: YouTube refuses to play in a packaged TV app with no referrer (its
+     error 153). Mute and unmute from the home are passed on to the player. -->
+<iframe id="yt" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+<script>
+(function () {
+  "use strict";
+  var q = location.search;
+  var v = (/[?&]v=([A-Za-z0-9_-]{11})(&|$)/.exec(q) || [])[1];
+  var mute = /[?&]mute=1/.test(q) ? 1 : 0;
+  var f = document.getElementById("yt");
+  if (v) f.src = "https://www.youtube-nocookie.com/embed/" + v + "?autoplay=1&controls=0&playsinline=1&enablejsapi=1&mute=" + mute +
+    "&origin=" + encodeURIComponent(location.protocol + "//" + location.host);
+  window.addEventListener("message", function (e) {
+    if (e.source !== window.parent) return;   // only the home that holds this page
+    var m = null;
+    try { m = JSON.parse(e.data); } catch (x) { return; }
+    if (m && (m.func === "mute" || m.func === "unMute") && f.contentWindow) {
+      f.contentWindow.postMessage(JSON.stringify({ event: "command", func: m.func, args: [] }), "*");
+    }
+  });
+})();
+</script>
+</body>
+</html>

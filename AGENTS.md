@@ -596,6 +596,17 @@ Ask: "Ready for me to set it up? You can undo all of it." Wait for a clear yes.
    Updates checks for one and installs it (Android asks first, and once asks to let Home install
    apps), and the weekly look can be switched on or off there.
 
+## The family home (only if they ask)
+
+If someone asks for the family home (whiteboards, the Haram live broadcast, prayer times and the adhan) on a
+Samsung or LG, read [docs/FAMILY.md](docs/FAMILY.md) and say its limits from its first section in plain words
+before anything else, in particular: the Samsung cannot pass its satellite picture to another TV; the adhan over
+other apps needs the bridge; drawing from outside the home needs the relay, which they put up on their own free
+Cloudflare account (relay/README.md: they sign in to Cloudflare themselves, you never ask for that password).
+The relay's draw key goes only into the family link for the phones, never into config.json, chat logs or git.
+The adhan recordings are downloaded by `scripts/get-adhan.py` onto their computer and are never committed. The
+`family` section goes in the plan you read back in step 3 and waits for the same yes.
+
 ## Two TVs in sync (only if they ask)
 
 If someone asks for two TVs to play the same show together, read [docs/SYNC.md](docs/SYNC.md) and

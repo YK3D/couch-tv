@@ -20,6 +20,7 @@ always reads config.example.json) and build/samsung/couch-tv-samsung-setup.zip (
 double-click installers for Mac and Windows from samsung/setup, and START HERE.txt).
 """
 import argparse
+import importlib.util
 import json
 import os
 import re
@@ -60,6 +61,9 @@ def web_ignore(release=False):
         if here == os.path.abspath(WEB) and "loop" in names:
             out.add("loop")
         if release and here == os.path.abspath(os.path.join(WEB, "backgrounds")) and "mine" in names:
+            out.add("mine")
+        # the adhan recordings this computer downloaded (scripts/get-adhan.py): never in a release
+        if release and here == os.path.abspath(os.path.join(WEB, "family", "adhan")) and "mine" in names:
             out.add("mine")
         return out
     return ignore
@@ -140,6 +144,30 @@ def main():
     with open(index, "w") as f:
         f.write(html)
 
+    # the family home's stylesheet: plain values beside its CSS variables and odd font weights, for 2016 and
+    # 2017 Samsungs (Chrome 47 has neither); the same rewrite as lg/build.py's, taken from there
+    spec = importlib.util.spec_from_file_location("lg_build", os.path.join(ROOT, "lg", "build.py"))
+    lg_build = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(lg_build)
+    css_path = os.path.join(stage, "family", "family.css")
+    with open(css_path, encoding="utf-8") as f:
+        css = f.read()
+    with open(css_path, "w", encoding="utf-8") as f:
+        f.write(lg_build.font_weight_fallbacks(lg_build.css_var_fallbacks(css)))
+
+    # family.html, the family home (docs/FAMILY.md): the same Samsung side before its config.js. boot.html
+    # opens it instead of index.html when config.json has a "family" section.
+    fam = os.path.join(stage, "family.html")
+    with open(fam, encoding="utf-8") as f:
+        fhtml = f.read()
+    if tag not in fhtml:
+        raise SystemExit("tv-home/web/family.html no longer loads config.js; update samsung/build.py")
+    fhtml = fhtml.replace(tag, '<script src="$WEBAPIS/webapis/webapis.js"></script>\n'
+                               '<script src="settings.js"></script>\n<script src="kept.js"></script>\n'
+                               '<script src="tizen-apps.js"></script>\n<script src="tizen.js"></script>\n' + tag)
+    with open(fam, "w", encoding="utf-8") as f:
+        f.write(fhtml)
+
     # config.js: the bridge's latest settings (boot.html keeps them), else the ones built in
     with open(os.path.join(stage, "config.js"), "w") as f:
         f.write("(function () {\n  var t = null;\n"
@@ -156,7 +184,7 @@ def main():
         raise SystemExit(f"{tv_cfg['id']}: sky_hdmi must be a port number from 1 to 4, or left out")
     key = "" if a.release else (a.key or config.PAIRING_KEY)
     settings = {"bridge": a.bridge.rstrip("/"), "tv": a.tv, "log": a.log_url.rstrip("/"), "sky_hdmi": sky, "key": key,
-                "version": version}
+                "version": version, "family": bool(config.FAMILY) and not a.release}
     with open(os.path.join(stage, "settings.js"), "w") as f:
         f.write("window.COUCH_TIZEN = " + json.dumps(settings) + ";\n")
     table = {}

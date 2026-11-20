@@ -321,6 +321,12 @@ def main():
         css = f.read()
     with open(css_path, "w", encoding="utf-8") as f:
         f.write(font_weight_fallbacks(css))
+    # the family home's stylesheet (docs/FAMILY.md) gets the same plain values for older webOS
+    css_path = os.path.join(stage, "family", "family.css")
+    with open(css_path, encoding="utf-8") as f:
+        css = f.read()
+    with open(css_path, "w", encoding="utf-8") as f:
+        f.write(font_weight_fallbacks(css_var_fallbacks(css)))
 
     # index.html: the LG side loads before the bridge settings and app.js
     index = os.path.join(stage, "index.html")
@@ -334,6 +340,18 @@ def main():
     with open(index, "w") as f:
         f.write(html)
 
+    # family.html, the family home (docs/FAMILY.md): the same LG side before its config.js. boot.html opens
+    # it instead of index.html when config.json has a "family" section.
+    fam = os.path.join(stage, "family.html")
+    with open(fam, encoding="utf-8") as f:
+        fhtml = f.read()
+    if tag not in fhtml:
+        raise SystemExit("tv-home/web/family.html no longer loads config.js; update lg/build.py")
+    fhtml = fhtml.replace(tag, '<script src="settings.js"></script>\n<script src="webos-apps.js"></script>\n'
+                               '<script src="webos.js"></script>\n' + tag)
+    with open(fam, "w", encoding="utf-8") as f:
+        f.write(fhtml)
+
     # config.js: the bridge's latest settings (boot.html keeps them), else the ones built in
     with open(os.path.join(stage, "config.js"), "w") as f:
         f.write("(function () {\n  var t = null;\n"
@@ -341,7 +359,8 @@ def main():
                 "  if (t) try { (0, eval)(t); } catch (e) {}\n"
                 "  if (!window.COUCH_CONFIG) window.COUCH_CONFIG = " + json.dumps(config.public()) + ";\n})();\n")
     key = a.key or config.PAIRING_KEY
-    settings = {"bridge": a.bridge.rstrip("/"), "tv": a.tv, "log": a.log_url.rstrip("/"), "key": key}
+    settings = {"bridge": a.bridge.rstrip("/"), "tv": a.tv, "log": a.log_url.rstrip("/"), "key": key,
+                "family": bool(config.FAMILY)}
     with open(os.path.join(stage, "settings.js"), "w") as f:
         f.write("window.COUCH_WEBOS = " + json.dumps(settings) + ";\n")
     table = {}

@@ -29,7 +29,8 @@
     if (S.tv) q.push("tv=" + encodeURIComponent(S.tv));
     if (live) q.push("api=" + encodeURIComponent(BRIDGE));
     else { q.push("offline=1"); if (!BRIDGE) q.push("alone=1"); }
-    location.replace("index.html?" + q.join("&"));
+    // the family home (docs/FAMILY.md) when config.json has a "family" section, else couch-tv's own home
+    location.replace((S.family ? "family.html" : "index.html") + "?" + q.join("&"));
   }
 
   function store(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }

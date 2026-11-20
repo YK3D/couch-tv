@@ -1,0 +1,13 @@
+{
+  "name": "couch-family-relay",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/dev-server.mjs",
+    "deploy": "cp ../tv-home/web/family/strokefont.js public/strokefont.js && wrangler deploy",
+    "test": "node ../tests/test_family_relay.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

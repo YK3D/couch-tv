@@ -776,6 +776,14 @@ the server's address. A `url` the bridge cannot use (no `http://`, a path on the
 section off and says so, at start and in the status. A server that is off or away never holds the
 home up: the hub is read in the background, and a read gives up after 10 seconds.
 
+## The family home (`family`, Samsung and LG)
+
+Optional. With a `family` section the Samsung and LG apps open the family home instead of the usual one:
+four whiteboards drawn from the family's phones through the relay, the live broadcast from Masjid al-Haram,
+prayer times with the adhan, the weather and one row of apps. Every key, with a whole example
+([examples/family.config.json](../examples/family.config.json)): [FAMILY.md](FAMILY.md#settings-in-configjson).
+A TV's own `family.haram` in `tvs[]` sets that TV's live picture. Never put the relay's draw key here.
+
 ## Everything else
 
 **Never forward a port to the bridge.** The bridge is built for your home network only. Never expose it

@@ -208,6 +208,15 @@ bridge, or Claude and other AI services in on-TV mode. Needs [option B or C](#th
 
 <p align="center"><sub><a href="docs/REMOTE.md">The phone remote</a> · <a href="docs/REMOTES.md">TV remotes and keys</a> · <a href="docs/ASK-PROVIDERS.md">Ask with any AI service</a></sub></p>
 
+## The family home (Samsung and LG)
+
+Four family whiteboards drawn from each person's phone (from anywhere), the live broadcast from Masjid
+al-Haram in the middle, prayer times with the adhan (which pauses Netflix or YouTube and picks up after),
+the weather and the clock, over a blurred mountain that follows the sun. Optional, with a `family` section
+in config.json: [docs/FAMILY.md](docs/FAMILY.md).
+
+<p align="center"><img src="docs/screens/family-home-day.jpg" alt="The family home: four whiteboards around the live broadcast from Masjid al-Haram, the prayer times, the weather and one row of apps" width="80%"></p>
+
 ## Kids mode
 
 A kids profile's home is one shelf of shows you chose, as big posters that open straight into each
@@ -382,6 +391,7 @@ sign in, to find the exact video for its card.
 | [Take couch-tv off](docs/UNINSTALL.md) | [All updates](docs/UPDATES.md) | [Apple TV](docs/APPLE-TV.md) |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | [Two TVs in sync](docs/SYNC.md) | [Every brand](docs/TV-BRANDS.md) |
 | [Which TVs work](docs/PLATFORMS.md) | [How it works, privacy, limits](docs/HOW-IT-WORKS.md) | [Philips, Panasonic, VIZIO and more](docs/README.md#per-tv) |
+| [The family whiteboards' relay](relay/README.md) | [The family home](docs/FAMILY.md) | |
 
 Everything else: [docs/](docs/README.md).
 

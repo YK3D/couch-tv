@@ -734,6 +734,19 @@ def save_tvs():
         f.write("\n")
 
 
+# The family home (docs/FAMILY.md): four family whiteboards, the live broadcast from Masjid al-Haram,
+# prayer times and the adhan. Only with a "family" section; checked here so a mistake stops the bridge
+# with a plain message instead of reaching the TV.
+import family_settings  # noqa: E402
+try:
+    FAMILY = family_settings.clean(CONFIG.get("family"))
+    for _t in TVS:
+        if _t.get("family") is not None:
+            _t["family"] = family_settings.clean_tv(_t.get("family"))
+except family_settings.FamilyError as _e:
+    raise SystemExit(f"config.json: {_e} (docs/FAMILY.md)")
+
+
 def public():
     """The parts the TV home and the phone remote are allowed to see."""
     import kids   # kids mode: the shelf and the PIN's hash (never the PIN) on each kids profile
@@ -743,9 +756,12 @@ def public():
                           "extend_devmode": t.get("extend_devmode", True) is not False,
                           "picture_modes": [m["name"] for m in picture_modes(t.get("picture"))]},
                          # input tiles for this TV only (its own HDMI devices); else home.inputs
-                         **({"inputs": _inputs(t["inputs"])} if isinstance(t.get("inputs"), list) else {}))
+                         **({"inputs": _inputs(t["inputs"])} if isinstance(t.get("inputs"), list) else {}),
+                         # this TV's own live picture for the family home (docs/FAMILY.md)
+                         **({"family": t["family"]} if FAMILY and t.get("family") else {}))
                      for t in TVS],
             "default_tv": DEFAULT_TV, "ask": {"enabled": ASK_ENABLED}, "phone_remote": PHONE_REMOTE,
             # only when config.json has one: without it the home is exactly as before
             **({"design": DESIGN} if DESIGN else {}),
-            **({"design_store": DESIGN_STORE} if DESIGN_STORE is not None else {})}
+            **({"design_store": DESIGN_STORE} if DESIGN_STORE is not None else {}),
+            **({"family": FAMILY} if FAMILY else {})}

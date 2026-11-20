@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b0e16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Family boards</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="draw.css">
+</head>
+<body>
+<!-- The family whiteboards, from a phone (docs/FAMILY.md). Pick the TV (or both) and whose board, then draw:
+     it shows on the TV as you draw. Works from anywhere: this page and the TVs meet at the relay. -->
+<header class="bar">
+  <h1 id="title">Family boards</h1>
+  <span class="conn" id="conn"><i></i><span id="conn-text"></span></span>
+</header>
+
+<section class="pick">
+  <div class="row" id="tvs" role="radiogroup" aria-label="TV"></div>
+  <div class="row" id="people" role="radiogroup" aria-label="Whose board"></div>
+</section>
+
+<main class="paper-wrap" id="paper-wrap">
+  <div class="paper" id="paper"><canvas id="board"></canvas></div>
+</main>
+
+<nav class="tools" id="tools">
+  <div class="colors" id="colors"></div>
+  <div class="row2">
+    <div class="sizes" id="sizes"></div>
+    <button class="tool" id="eraser" aria-label="Eraser" title="Eraser"><svg viewBox="0 0 24 24"><path d="m7 21-4.3-4.3a1 1 0 0 1 0-1.4l10-10a1 1 0 0 1 1.4 0l5.6 5.6a1 1 0 0 1 0 1.4L11 21z"/><path d="M22 21H7M5 11l9 9"/></svg></button>
+    <button class="tool" id="note" aria-label="Type a note" title="Type a note"><svg viewBox="0 0 24 24"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg></button>
+    <button class="tool" id="undo" aria-label="Undo" title="Undo"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+    <button class="tool danger" id="clear" aria-label="Clear the board" title="Clear the board"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+  </div>
+</nav>
+
+<div class="sheet" id="note-sheet" aria-hidden="true">
+  <div class="sheet-card">
+    <h2 id="note-title">Type a note</h2>
+    <textarea id="note-text" rows="3" maxlength="120" placeholder="BUY DATES"></textarea>
+    <p class="sheet-hint" id="note-hint">Capital letters and numbers. It goes on the board as handwriting, and Undo takes it off.</p>
+    <div class="sheet-buttons"><button id="note-cancel">Cancel</button><button class="primary" id="note-add">Add to board</button></div>
+  </div>
+</div>
+
+<div class="sheet" id="join" aria-hidden="true">
+  <div class="sheet-card">
+    <h2>Family boards</h2>
+    <p>Open the family link that was set up for your home (relay/README.md). It looks like
+      <code>https://…/#h=…&amp;k=…</code>. Once opened, this phone remembers it.</p>
+  </div>
+</div>
+
+<script src="strokefont.js"></script>
+<script src="draw.js"></script>
+</body>
+</html>

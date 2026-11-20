@@ -1,0 +1,19 @@
+# The family whiteboards' relay on Cloudflare (relay/README.md). Free plan: Durable Objects backed by SQLite.
+name = "couch-family"
+main = "src/worker.js"
+compatibility_date = "2025-06-01"
+
+# the phone page
+[assets]
+directory = "./public"
+
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "FamilyRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["FamilyRoom"]
+
+# Secrets, never in this file: npx wrangler secret put DRAW_KEY   and   npx wrangler secret put TV_KEY
+# Optional, so this relay serves only your household: [vars] HOUSEHOLD = "your-household-id"
